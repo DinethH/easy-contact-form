@@ -1,0 +1,113 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-input/paper-input-decorator.html">
+<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../paper-input/paper-autogrow-textarea.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../core-ajax/core-ajax.html">
+<link rel="import" href="../paper-toast/paper-toast.html">
+
+<!--
+Element providing solution to no problem in particular.
+
+##### Example
+
+    <easy-contactform></easy-contactform>
+
+@element easy-contactform
+@blurb Element providing solution to no problem in particular.
+@status alpha
+@homepage http://DinethH.github.io/easy-contactform
+-->
+<polymer-element name="easy-contactform" attributes="author fancy">
+    <template>
+        <link rel="stylesheet" href="easy-contactform.css">
+        <div>
+            <form name="contactForm">
+                <div>
+                    <paper-input-decorator id="nameDec" label="Name" floatingLabel error="Required!">
+                        <input id="nameIn" value="{{item.name}}" is="core-input" required>
+                    </paper-input-decorator>
+                </div>
+                <div>
+                    <paper-input-decorator id="emailDec" label="Email" floatingLabel error="Invalid email address!">
+                        <input id="emailIn" value="{{item.email}}" is="core-input" type="email" required>
+                    </paper-input-decorator>
+                </div>
+                <div>
+                    <paper-input-decorator id="subjectDec" label="Subject" floatingLabel error="Required!">
+                        <input id="subjectIn" value="{{item.subject}}" is="core-input" required>
+                    </paper-input-decorator>
+                </div>
+                <div>
+                    <paper-input-decorator id="companyDec" label="Company" floatingLabel>
+                        <input id="companyIn" value="{{item.company}}" is="core-input">
+                    </paper-input-decorator>
+                </div>
+                <div>
+                    <paper-input-decorator id="messageDec" floatingLabel label="Message" error="Required!">
+                        <paper-autogrow-textarea id="a1" rows=7>
+                            <textarea id="messageIn" value="{{item.message}}" required></textarea>
+                        </paper-autogrow-textarea>
+                    </paper-input-decorator>
+                </div>
+
+                <div horizontal layout>
+                    <div flex></div>
+                    <div>
+                        <paper-button on-tap="{{send}}">Submit</paper-button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <core-ajax method="POST" id="ajax" url="../../api/sendEmail.php" params='{{item}}' handleAs="json" response="{{response}}"></core-ajax>
+
+        <paper-toast id="contactResponse" text="Your message has been sent. Thank you for contacting us!"></paper-toast>
+    </template>
+    <script>
+        Polymer({
+            created: function () {
+                // initialize item object
+                this.item = {};
+            },
+            /**
+             * This method validates the values entered by the user
+             * @method validate
+             * @returns {Boolean} 
+             */
+            validate: function () {
+                this.$.nameDec.isInvalid = !this.$.nameIn.validity.valid;
+                this.$.emailDec.isInvalid = !this.$.emailIn.validity.valid;
+                this.$.subjectDec.isInvalid = !this.$.subjectIn.validity.valid;
+                this.$.messageDec.isInvalid = !this.$.messageIn.validity.valid;
+
+                if (this.$.nameIn.validity.valid && this.$.emailIn.validity.valid && this.$.subjectIn.validity.valid && this.$.messageIn.validity.valid) {
+                    return true;
+                } else {
+                    return false;
+                }
+            },
+            send: function () {
+                var name = this.item.name;
+                var email = this.item.email;
+                var subject = this.item.subject;
+                var company = this.item.company;
+                var message = this.item.message;
+                if (this.validate()) {
+                    this.$.ajax.go();
+                }
+
+            },
+            responseChanged: function () {
+                if (this.response = "success") {
+                    this.item.name = "";
+                    this.item.email = "";
+                    this.item.subject = "";
+                    this.item.message = "";
+                    this.item.company = "";
+                    this.$.contactResponse.show();
+                }
+            }
+        });
+    </script>
+</polymer-element>
