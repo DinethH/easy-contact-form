@@ -1,0 +1,30 @@
+{
+  "name": "easy-contact-form",
+  "keywords": [
+    "seed",
+    "polymer",
+    "web-components"
+  ],
+  "main": "easy-contact-form.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^0.5.4"
+  },
+  "devDependencies": {
+    "web-component-tester": "Polymer/web-component-tester",
+    "paper-input": "Polymer/paper-input",
+    "paper-button": "Polymer/paper-button",
+    "core-ajax": "Polymer/core-ajax",
+    "paper-toast": "Polymer/paper-toast"
+  },
+  "homepage": "https://github.com/DinethH/easy-contact-form",
+  "_release": "331e6e958c",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "331e6e958c5fb30daa38e682ba484f1f54f3b922"
+  },
+  "_source": "git://github.com/DinethH/easy-contact-form.git",
+  "_target": "master",
+  "_originalSource": "DinethH/easy-contact-form",
+  "_direct": true
+}

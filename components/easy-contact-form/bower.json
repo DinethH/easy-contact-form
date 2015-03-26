@@ -1,0 +1,20 @@
+{
+  "name": "easy-contact-form",
+  "version": "0.0.1",
+  "keywords": [
+    "seed",
+    "polymer",
+    "web-components"
+  ],
+  "main": "easy-contact-form.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^0.5.4"
+  },
+  "devDependencies": {
+        "web-component-tester": "Polymer/web-component-tester",
+        "paper-input": "Polymer/paper-input",
+        "paper-button": "Polymer/paper-button",
+        "core-ajax": "Polymer/core-ajax",
+        "paper-toast": "Polymer/paper-toast"
+  }
+}
